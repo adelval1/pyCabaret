@@ -1,0 +1,29 @@
+---------------------------------
+MIXTURE OPTIONS
+---------------------------------
+Mixture type
+-
+air_11
+-
+Thermodynamics
+-
+RRHO
+-
+State model
+-
+EquilTP
+-
+---------------------------------
+FORWARD INPUT PARAMETERS
+---------------------------------
+Free stream temperature
+-
+10000.0
+-
+Free stream pressure
+-
+5000.0
+-
+Free stream Mach number
+-
+5.0

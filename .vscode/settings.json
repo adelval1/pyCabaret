@@ -1,0 +1,9 @@
+{
+    "files.associations": {
+        "__bit_reference": "cpp",
+        "algorithm": "cpp",
+        "deque": "cpp",
+        "memory": "cpp",
+        "type_traits": "cpp"
+    }
+}

@@ -16,6 +16,21 @@ def setup_mpp():
     opts.setStateModel(state)
 
     mix = mpp.Mixture(mixture)
-    mix = mpp.Mixture(opts)
-    
+    mix  = mpp.Mixture(opts)
+
     return mix
+
+def mixture_states(mix):
+    mix_freeStream = mix
+    mix_ps = mix
+    mix_total = mix
+    mix_res = mix   
+    mix_thr = mix 
+    states = {"free_stream": mix_freeStream,
+              "post_shock": mix_ps,
+              "total": mix_total,
+              "reservoir": mix_res,
+              "throat": mix_thr
+
+    }
+    return states
