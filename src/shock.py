@@ -6,7 +6,7 @@ from scipy.optimize import minimize
 
 resmin = 1.0e-06
 
-def inner_loop_temp(T,P,RHS):
+def inner_loop_temp(T,P,RHS,mix):
     setup.mixture_states(mix)["post_shock"].equilibrate(T,P)
 
     h_eq = setup.mixture_states(mix)["post_shock"].mixtureHMass()
@@ -17,12 +17,12 @@ def inner_loop_temp(T,P,RHS):
     return dT
 
     
-def func_minimize(ratio,var,c,p_1,v_1,rho_1,h_1,T_1):
+def func_minimize(ratio,var,c,p_1,v_1,rho_1,h_1,T_1,mix):
     var[1] = p_1 + c[0]*v_1*(1.-ratio)
     rho_eq = rho_1/ratio
     RHS  = h_1 + (0.5*v_1*v_1*(1. - (ratio*ratio)))
 
-    temp_loop = scipy.optimize.minimize(inner_loop_temp,var[0],args=(var[1],RHS),method='Nelder-Mead',tol=resmin)
+    temp_loop = scipy.optimize.minimize(inner_loop_temp,var[0],args=(var[1],RHS,mix),method='Nelder-Mead',tol=resmin)
 
     var[0] = temp_loop.x
     setup.mixture_states(mix)["post_shock"].equilibrate(var[0],var[1])
@@ -61,7 +61,7 @@ def shock(preshock_state,mix):
     var = [T_eq,p_eq]
 
     # Outer loop for Mass/Momentum
-    result = scipy.optimize.minimize(func_minimize,ratio,args=(var,c,preshock_state[1],v_1,rho_1,h_1,preshock_state[0]),method='Nelder-Mead',tol=resmin)
+    result = scipy.optimize.minimize(func_minimize,ratio,args=(var,c,preshock_state[1],v_1,rho_1,h_1,preshock_state[0],mix),method='Nelder-Mead',tol=resmin)
 
     v_eq = v_1*result.x
     setup.mixture_states(mix)["post_shock"].equilibrate(var[0],var[1])
@@ -69,10 +69,10 @@ def shock(preshock_state,mix):
 
     postshock_state = [var[0][0],var[1][0],v_eq[0]] # T, P, V
 
-    return postshock_state
+    return postshock_state[0],postshock_state[1],postshock_state[2]
 
-mix = setup.setup_mpp()
+# mix = setup.setup_mpp()
 
-preshock_state = [15000.0,10.0,8.0] # preshock_state = [T_1,p_1,v_1]
+# preshock_state = [15000.0,10.0,8.0] # preshock_state = [T_1,p_1,v_1]
 
-print(shock(preshock_state,mix))
+# print(shock(preshock_state,mix))

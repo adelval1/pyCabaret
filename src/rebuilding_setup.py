@@ -6,9 +6,9 @@ def setup_mpp():
     with open('../input.in', 'r') as f:
         lines = f.readlines()
 
-    mixture = lines[5].strip()
-    thermo = lines[9].strip()
-    state = lines[13].strip()
+    mixture = lines[12].strip()
+    thermo = lines[16].strip()
+    state = lines[20].strip()
 
     ## Setting up Mutation++ options and mixture
     opts = mpp.MixtureOptions(mixture)

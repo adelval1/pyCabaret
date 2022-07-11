@@ -6,48 +6,53 @@ from scipy.optimize import minimize
 
 class enthalpy_entropy_solver:
 
-    def __init__(self,resmin,h,s,mix):
+    def __init__(self,resmin,h,s,mix,state,name):
         self.resmin = resmin
         self.h = h
         self.s = s
         self.mix = mix
+        self.state = state
+        self.name = name
 
     def set_resmin(self,resmin):
         self.resmin = resmin
 
-    def func_minimize(self,var):
-        ## Setting positivity constraints ## Ideally this is done by the optimization method but I don't have latest scipy with my python distribution
-        if var[0]<0:
-            var[0] = 300.0
-        elif var[1]<0:
-            var[1] = 5.0
+    def func_minimize(self,var,T,p,resini,constraint_type,constraints):
 
-        setup.mixture_states(self.mix)["reservoir"].equilibrate(var[0],var[1])
+        real = [var[0]*T,var[1]*p]
+        # real = [T,p]
+
+        setup.mixture_states(self.mix)[self.state].equilibrate(real[0],real[1])
         if self.v0 !=0.:
-            self.v0 = setup.mixture_states(self.mix)["reservoir"].equilibriumSoundSpeed()
+            self.v0 = setup.mixture_states(self.mix)[self.state].equilibriumSoundSpeed()
         
-        h_0 = setup.mixture_states(self.mix)["reservoir"].mixtureHMass() + 0.5*(self.v0**2)
-        s_0 = setup.mixture_states(self.mix)["reservoir"].mixtureSMass()
+        h_0 = setup.mixture_states(self.mix)[self.state].mixtureHMass() + (0.5*(self.v0**2))
+        s_0 = setup.mixture_states(self.mix)[self.state].mixtureSMass()
 
-        residual = [self.h-h_0, self.s-s_0]
-        metric = np.linalg.norm(residual)
+        residual = [(h_0-self.h)/self.h, (s_0-self.s)/self.s]
+        metric = np.linalg.norm(residual)/resini
+        # metric = ((residual[0]**2)+(residual[0]**2))/resini
         return metric
 
-    def solution(self,T,p,v_0=0.):
+    def solution(self,T,p,constraint_type,constraints,v_0=0.):
 
         ## Initial conditions ##
-        T_0 = T
-        p_0 = p
-        var = [T_0,p_0]
+        var = [1.,1.]
+        # var = [T,p]
         self.v0=v_0
+        resini = 1.0
+        resini = self.func_minimize(var,T,p,resini,constraint_type,constraints)
 
-        ## Conserved variables ##
-        setup.mixture_states(self.mix)["free_stream"].equilibrate(T,p)
-
-        result = scipy.optimize.minimize(self.func_minimize,var,method='Nelder-Mead',tol=self.resmin)
+        bnds = ((0.01, None), (0.01, None))
+        # bnds = ((T, None), (p, None))
+        options={'maxiter': None}
+        result = scipy.optimize.minimize(self.func_minimize,var,args=(T,p,resini,constraint_type,constraints),method='Nelder-Mead',bounds=bnds,tol=self.resmin,options=options)
+        if result.nit == 400:
+            print("Number of maximum iterations reached. Convergence not guaranteed for"+' '+self.name)
+            exit(0)
 
         if self.v0 !=0.:
-            setup.mixture_states(self.mix)["reservoir"].equilibrate(result.x[0],result.x[1])
-            self.v0 = setup.mixture_states(self.mix)["reservoir"].equilibriumSoundSpeed()
+            setup.mixture_states(self.mix)[self.state].equilibrate(result.x[0]*T,result.x[1]*p)
+            self.v0 = setup.mixture_states(self.mix)[self.state].equilibriumSoundSpeed()
 
-        return result.x[0],result.x[1],self.v0
+        return result.x[0]*T,result.x[1]*p,self.v0
