@@ -3,7 +3,7 @@ REBUILDING OPTION
 ---------------------------------
 Inverse
 -
-True
+False
 -
 ---------------------------------
 MIXTURE OPTIONS
@@ -25,15 +25,15 @@ FORWARD INPUT PARAMETERS
 ---------------------------------
 Free stream temperature
 -
-5000.0
+1.16438835e+04
 -
 Free stream pressure
 -
-5000.0
+7.09470510e+03
 -
 Free stream Mach number
 -
-2.0
+4.4
 -
 Throat area
 -
@@ -64,25 +64,25 @@ Residual
 -
 Measurements to rebuild from
 -
-Reservoir_temperature
 Heat_flux
-Mass_flow
+Stagnation_pressure
+Reservoir_pressure
 -
 Heat_flux
 -
-8500000.0
+62689198.98
 -
 Stagnation_pressure
 -
-111300.0
+141514.9
 -
 Reservoir_pressure
 -
-590000.0
+11112621.34
 -
 Reservoir_temperature
 -
-5570.0
+4
 -
 Total_enthalpy
 -
@@ -98,25 +98,9 @@ Free_stream_density
 -
 Mass_flow
 -
-0.182
+4
 -
 Free_stream_velocity
 -
 4
--
-Optimization method
--
-Root
--
-Maximum number of iterations
--
-10000000000000
--
-Number of starting points
--
-1
--
-Print steps
--
-Yes
 -

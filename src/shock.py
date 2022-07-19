@@ -18,6 +18,9 @@ def inner_loop_temp(T,P,RHS,mix):
 
     
 def func_minimize(ratio,var,c,p_1,v_1,rho_1,h_1,T_1,mix):
+    if ratio>1.0:
+        return 1.0e+16
+
     var[1] = p_1 + c[0]*v_1*(1.-ratio)
     rho_eq = rho_1/ratio
     RHS  = h_1 + (0.5*v_1*v_1*(1. - (ratio*ratio)))
@@ -62,6 +65,8 @@ def shock(preshock_state,mix):
 
     # Outer loop for Mass/Momentum
     result = scipy.optimize.minimize(func_minimize,ratio,args=(var,c,preshock_state[1],v_1,rho_1,h_1,preshock_state[0],mix),method='Nelder-Mead',tol=resmin)
+    if result.success == False:
+        print("Convergence not guaranteed for shocking")
 
     v_eq = v_1*result.x
     setup.mixture_states(mix)["post_shock"].equilibrate(var[0],var[1])

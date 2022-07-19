@@ -7,8 +7,10 @@ import heatflux as htfl
 import enthalpy_entropy_solver as solver
 import total as ttl
 
-def forward(preshock_state,resmin,A_t,reff,T_w,pr,L,mix):
-    print(preshock_state)
+def forward(preshock_state,resmin,A_t,reff,T_w,pr,L,mix,print_info):
+    if print_info == "Yes":
+        print(preshock_state)
+        
     T_1 = preshock_state[0]
     p_1 = preshock_state[1]
     M_1 = preshock_state[2]

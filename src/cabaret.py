@@ -20,7 +20,9 @@ def reading_input():
                         "inverse": lines[5].strip(),
                         "measurements": [lines[66].strip(),lines[67].strip(),lines[68].strip()],
                         "method": lines[108].strip(),
-                        "maxiter": int(lines[112].strip())
+                        "maxiter": int(lines[112].strip()),
+                        "start_points": int(lines[116].strip()),
+                        "print_info": lines[120].strip()
 
     }
 
@@ -30,10 +32,23 @@ input_dict = reading_input()
 mix = setup.setup_mpp()
 
 if input_dict["inverse"] == 'True':
-    inv.inverse(input_dict["measurements"],input_dict,mix)
+    output = inv.inverse(input_dict["measurements"],input_dict,mix)
+    print('...in inverse mode')
+    print('------------------'+'\n')
+    print('For these measurements...'+'\n')
+    print(input_dict["measurements"][0]+'                  '+ str(input_dict["simulated_measurements"][input_dict["measurements"][0]]))
+    print(input_dict["measurements"][1]+'                  '+ str(input_dict["simulated_measurements"][input_dict["measurements"][1]]))
+    print(input_dict["measurements"][2]+'                  '+ str(input_dict["simulated_measurements"][input_dict["measurements"][2]]))
+    print('------------------'+'\n')
+    print('these free stream conditions...'+'\n')
+    print('T1 [K]'+'   '+ str(output[0]))
+    print('P1 [Pa]'+'   '+str(output[1]))
+    print('M1 [-]'+'       '+str(output[2]))
+    print('------------------')
+
 else:
     preshock_state = [input_dict["freestream"]["Temperature"],input_dict["freestream"]["Pressure"],input_dict["freestream"]["Mach"]]
-    output = forw.forward(preshock_state,input_dict["residual"],input_dict["throat_area"],input_dict["effective_radius"],input_dict["surface_temperature"],input_dict["Prandtl"],input_dict["Lewis"],mix)
+    output = forw.forward(preshock_state,input_dict["residual"],input_dict["throat_area"],input_dict["effective_radius"],input_dict["surface_temperature"],input_dict["Prandtl"],input_dict["Lewis"],mix,input_dict["print_info"])
     print('...in forward mode')
     print('------------------'+'\n')
     print('For these free stream conditions...'+'\n')
