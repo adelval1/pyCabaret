@@ -1,18 +1,16 @@
 
-## SoFIA
-**So**bol-based sensitivity analysis, **F**orward and **I**nverse uncertainty propagation with **A**pplication to high temperature gases.
-![](image_2.png)
+## CABARET
+**C**onserv**A**tion **B**alance equation code for **A**tmosphe**R**ic **E**n**T**ry
+
 ## Installation ##
 
-To install SoFIA just do in your terminal in the directory of your choice (python3 or python depending on how you use your local python installation)
+To install CABARET just do in your terminal in the directory of your choice (python3 or python depending on how you use your local python installation)
 
 ```
-git clone https://github.com/pysofia/SoFIA.git
-cd SoFIA/installation
-python3 setup.py install 
+git clone https://github.com/adelval1/pyCabaret.git
 ```
 
-## SoFIA applications ##
+## CABARET applications ##
 The theoretical aspects of the applications included in SoFIA can be found in the following PhD thesis:
 
 * del Val, A., Bayesian calibration and assessment of gas-surface interaction models and experiments
