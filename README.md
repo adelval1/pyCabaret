@@ -1,6 +1,6 @@
 
 ## CABARET
-**C**onserv**A**tion **B**alance equation code for **A**tmosphe**R**ic **E**n**T**ry
+![alt text](https://github.com/adelval1/pyCabaret/blob/master/logo.png) **C**onserv**A**tion **B**alance equation code for **A**tmosphe**R**ic **E**n**T**ry
 
 ## Installation ##
 
@@ -11,7 +11,7 @@ git clone https://github.com/adelval1/pyCabaret.git
 ```
 
 ## CABARET applications ##
-The theoretical aspects of the applications included in SoFIA can be found in the following PhD thesis:
+The theoretical aspects of the applications included in CABARET can be found in the following PhD thesis:
 
 * del Val, A., Magin, T.E., Dias, B. and Chazot, O., 2015. Characterization of ground testing conditions in high enthalpy and plasma wind tunnels for aerospace missions. In 8th European Symposium on Aerothermodynamics for Space Vehicles, Lisbon, Portugal (Vol. 107, p. 171).
 
