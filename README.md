@@ -1,6 +1,6 @@
 
 ## CABARET
-<img src="https://github.com/adelval1/pyCabaret/blob/master/logo2.png" width="500" height="300" /> 
+<img src="https://github.com/adelval1/pyCabaret/blob/master/logo2.png" width="800" height="650" /> 
 
 <!-- **C**onserv**A**tion **B**alance equation code for **A**tmosphe**R**ic **E**n**T**ry -->
 
