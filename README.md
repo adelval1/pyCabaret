@@ -1,10 +1,6 @@
 
 ## CABARET
-<img src="https://github.com/adelval1/pyCabaret/blob/master/logo2.png" width="620" height="450" /> 
-
-<!-- **C**onserv**A**tion **B**alance equation code for **A**tmosphe**R**ic **E**n**T**ry -->
-
-<!-- ![alt text](https://github.com/adelval1/pyCabaret/blob/master/logo.png | width=100) -->
+<img src="https://github.com/adelval1/pyCabaret/blob/master/logo.png" width="620" height="450" /> 
 
 ## Installation and requirements ##
 
