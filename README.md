@@ -4,7 +4,7 @@
 
 ## Installation ##
 
-To install CABARET just do in your terminal in the directory of your choice (python3 or python depending on how you use your local python installation)
+To install CABARET just do in your terminal in the directory of your choice
 
 ```
 git clone https://github.com/adelval1/pyCabaret.git
