@@ -4,7 +4,6 @@ import rebuilding_setup as setup
 import scipy
 from scipy.optimize import minimize
 from scipy import misc
-import dfoalgos
 
 class enthalpy_entropy_solver:
 
