@@ -20,11 +20,7 @@ numpy 1.20.1
 scipy 1.8.0
 ```
 
-The python wrapper for the Mutation++ library can be found on
-
-```
-https://github.com/mutationpp/Mutationpp 
-```
+The python wrapper for the Mutation++ library can be found on https://github.com/mutationpp/Mutationpp 
 
 ## CABARET applications ##
 The theoretical aspects of the modules included in CABARET can be found in the following conference paper:
