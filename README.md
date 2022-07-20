@@ -18,7 +18,7 @@ numpy 1.20.1
 scipy 1.8.0
 ```
 
-To run CABARET just do in the /src folder
+To run CABARET just specify the options you want in the input.in file and do in the /src folder
 
 ```
 python cabaret.py
