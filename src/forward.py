@@ -4,7 +4,6 @@ import reservoir as res
 import massflow as msfl
 import shock as sck
 import heatflux as htfl
-import enthalpy_entropy_solver as solver
 import total as ttl
 import time
 

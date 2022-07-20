@@ -18,6 +18,14 @@ numpy 1.20.1
 scipy 1.8.0
 ```
 
+To run CABARET just do in the /src folder
+
+```
+python cabaret.py
+```
+
+where python is your python installation.
+
 The python wrapper for the Mutation++ library can be found on https://github.com/mutationpp/Mutationpp 
 
 ## CABARET applications ##
