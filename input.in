@@ -3,7 +3,7 @@ REBUILDING OPTION
 ---------------------------------
 Inverse
 -
-True
+False
 -
 ---------------------------------
 MIXTURE OPTIONS
@@ -25,7 +25,7 @@ FORWARD INPUT PARAMETERS
 ---------------------------------
 Free stream temperature
 -
-5000.0
+3500.0
 -
 Free stream pressure
 -
@@ -60,29 +60,29 @@ INVERSE INPUT PARAMETERS
 ---------------------------------
 Residual
 -
-1.0e-06
+1.0e-10
 -
 Measurements to rebuild from
 -
-Reservoir_temperature
 Heat_flux
-Mass_flow
+Stagnation_pressure
+Reservoir_pressure
 -
 Heat_flux
 -
-8500000.0
+16323445.95
 -
 Stagnation_pressure
 -
-111300.0
+51571.17
 -
 Reservoir_pressure
 -
-590000.0
+268261.66
 -
 Reservoir_temperature
 -
-5570.0
+5100.0
 -
 Total_enthalpy
 -
@@ -98,7 +98,7 @@ Free_stream_density
 -
 Mass_flow
 -
-0.182
+0.142
 -
 Free_stream_velocity
 -
@@ -106,7 +106,7 @@ Free_stream_velocity
 -
 Optimization method
 -
-Root
+Nelder-Mead
 -
 Maximum number of iterations
 -
@@ -117,6 +117,65 @@ Number of starting points
 1
 -
 Print steps
+-
+No
+-
+---------------------------------
+MODULES PARAMETERS
+---------------------------------
+Reservoir
+-
+Initial temperature
+-
+100.0
+-
+Initial pressure
+-
+10000.0
+-
+Robust
+-
+Yes
+-
+Mass flow
+-
+Initial temperature
+-
+2.0
+-
+Initial pressure
+-
+10.0
+-
+Robust
+-
+No
+-
+Shocking
+-
+Initial ratio
+-
+0.2
+-
+Initial pressure
+-
+100.0
+-
+Robust
+-
+No
+-
+Total quantities
+-
+Initial temperature
+-
+10.0
+-
+Initial pressure
+-
+10000.0
+-
+Robust
 -
 Yes
 -

@@ -1,5 +1,5 @@
 import numpy as np
-import forward as frwd
+import module_forward as frwd
 import scipy
 from scipy.optimize import minimize
 
@@ -22,7 +22,7 @@ def inverse_minimize(preshock_state_var,meas,dict,mix): # meas is list of names
 
     preshock_state = denormalization(preshock_state_var,[20000.,50000.,20.],[300.,50.,1.01])
 
-    measurements_dict = frwd.forward(preshock_state,dict["residual"],dict["throat_area"],dict["effective_radius"],dict["surface_temperature"],dict["Prandtl"],dict["Lewis"],mix,dict["print_info"])
+    measurements_dict = frwd.module_forward(preshock_state,dict["residual"],dict["throat_area"],dict["effective_radius"],dict["surface_temperature"],dict["Prandtl"],dict["Lewis"],mix,dict["measurements"],dict["print_info"],dict["options"])
 
     res = [(dict["simulated_measurements"][meas[i]] - measurements_dict[meas[i]])/dict["simulated_measurements"][meas[i]] for i in range(len(meas))]
     res_norm = np.linalg.norm(res)
@@ -36,7 +36,7 @@ def vect_inverse_minimize(preshock_state_var,meas,dict,mix): # meas is list of n
 
     preshock_state = denormalization(preshock_state_var,[20000.,50000.,20.],[300.,50.,1.01])
 
-    measurements_dict = frwd.forward(preshock_state,dict["residual"],dict["throat_area"],dict["effective_radius"],dict["surface_temperature"],dict["Prandtl"],dict["Lewis"],mix,dict["print_info"])
+    measurements_dict = frwd.module_forward(preshock_state,dict["residual"],dict["throat_area"],dict["effective_radius"],dict["surface_temperature"],dict["Prandtl"],dict["Lewis"],mix,dict["measurements"],dict["print_info"],dict["options"])
 
     res = [(dict["simulated_measurements"][meas[i]] - measurements_dict[meas[i]])/dict["simulated_measurements"][meas[i]] for i in range(len(meas))]
     res_norm = [np.linalg.norm(res[i]) for i in range(3)]
@@ -61,6 +61,10 @@ def inverse(meas,dict,mix):
             preshock_state_var = [np.random.random(),np.random.random(),np.random.random()]
             if dict["method"] == "Root":
                 result = scipy.optimize.root(vect_inverse_minimize,preshock_state_var,args=(meas,dict,mix),tol=dict["residual"])
+            elif dict["method"] == "Hybrid":
+                result = scipy.optimize.minimize(inverse_minimize,preshock_state_var,args=(meas,dict,mix),method="L-BFGS-B",tol=1.0e-03,options=options)
+                preshock_state_var = result.x
+                result = scipy.optimize.root(vect_inverse_minimize,preshock_state_var,args=(meas,dict,mix),tol=dict["residual"])
             else:
                 result = scipy.optimize.minimize(inverse_minimize,preshock_state_var,args=(meas,dict,mix),method=dict["method"],tol=dict["residual"],bounds=bnds,options=options)
             evals[i] = result.fun
@@ -71,9 +75,14 @@ def inverse(meas,dict,mix):
     else:
         if dict["method"] == "Root":
             result = scipy.optimize.root(vect_inverse_minimize,preshock_state_var,args=(meas,dict,mix),tol=dict["residual"])
+        elif dict["method"] == "Hybrid":
+            result = scipy.optimize.minimize(inverse_minimize,preshock_state_var,args=(meas,dict,mix),method="L-BFGS-B",tol=1.0e-03,options=options)
+            preshock_state_var = result.x
+            result = scipy.optimize.root(vect_inverse_minimize,preshock_state_var,args=(meas,dict,mix),tol=dict["residual"])
         else:
             result = scipy.optimize.minimize(inverse_minimize,preshock_state_var,args=(meas,dict,mix),method=dict["method"],tol=dict["residual"],options=options)
         print(result.message)
+        print("Residual value = ", result.fun)
         x = result.x
 
     return denormalization(x,[20000.,50000.,20.],[300.,50.,1.01])

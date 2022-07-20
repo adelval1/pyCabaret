@@ -8,20 +8,21 @@ import dfoalgos
 
 class enthalpy_entropy_solver:
 
-    def __init__(self,resmin,h,s,mix,state,name):
+    def __init__(self,resmin,h,s,mix,state,name,options):
         self.resmin = resmin
         self.h = h
         self.s = s
         self.mix = mix
         self.state = state
         self.name = name
+        self.options = options
 
     def set_resmin(self,resmin):
         self.resmin = resmin
 
     def func_minimize(self,var,T,p,resini,constraint_type,constraints):
         for i in range(len(var)):
-            if var[i]<1.0:
+            if var[i]<0.0:
                 return 1.0e+16
 
         real = [var[0]*T,var[1]*p]
@@ -39,7 +40,7 @@ class enthalpy_entropy_solver:
 
     def vect_func_minimize(self,var,T,p,resini,constraint_type,constraints):
         for i in range(len(var)):
-            if var[i]<1.0:
+            if var[i]<0.0:
                 return [1.0e+16]*len(var)
 
         real = [var[0]*T,var[1]*p]
@@ -62,21 +63,24 @@ class enthalpy_entropy_solver:
     def solution(self,T,p,constraint_type,constraints,v_0=0.):
 
         ## Initial conditions ##
-        var = [2.,2.]
+        var =[self.options["temperature"],self.options["pressure"]] #[10.,100.]
         self.v0=v_0
         resini = 1.0
         resini = self.func_minimize(var,T,p,resini,constraint_type,constraints)
 
         bnds = ((1.0, None), (1.0, None)) 
         options={'maxiter': None}
-        result = scipy.optimize.minimize(self.func_minimize,var,args=(T,p,resini,constraint_type,constraints),method='Powell',tol=1.0e-06,bounds=bnds,options=options)
-        var = result.x
-        result = scipy.optimize.root(self.vect_func_minimize,var,args=(T,p,resini,constraint_type,constraints),tol=self.resmin)
-        # print(result)
-        # exit(0)
+        if self.options["robust"] == "Yes":
+            result = scipy.optimize.minimize(self.func_minimize,var,args=(T,p,resini,constraint_type,constraints),method='Powell',tol=self.resmin,bounds=bnds,options=options)
 
-        if result.success == False:
-            print("Convergence not guaranteed for"+' '+self.name)
+            if result.success == False:
+                print("Warning: convergence not guaranteed for"+' '+self.name)
+
+        else:
+            result = scipy.optimize.root(self.vect_func_minimize,var,args=(T,p,resini,constraint_type,constraints),tol=self.resmin)
+
+            if result.success == False:
+                print("Warning: convergence not guaranteed for"+' '+self.name)
 
         if self.v0 !=0.:
             setup.mixture_states(self.mix)[self.state].equilibrate(result.x[0]*T,result.x[1]*p)
