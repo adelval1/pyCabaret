@@ -1,12 +1,26 @@
-import numpy as np 
-import mutationpp as mpp
+import numpy as np
+import mutationpp as mpp 
+import sys
+
+# To run locally and find the modules in /src
+cabaret_src_folder = '/Users/anabel/Documents/PhD/Code/pyCabaret/src'
+sys.path.insert(0, cabaret_src_folder)
+
+from reservoir import reservoir
 import rebuilding_setup as setup
-import enthalpy_entropy_solver as solver
 
-def reservoir(T_1,p_1,h_1,s_1,resmin,mix,state,options):
-    reservoir_state = solver.enthalpy_entropy_solver(resmin,h_1,s_1,mix,state,"reservoir",options)
+options = {"pressure": 10000.0, 
+           "temperature": 100.0,
+           "robust": "Yes"}
 
-    return reservoir_state.solution(T_1,p_1,"lower",[T_1,p_1])
+T_1 = 3500.0
+p_1 = 5000.0
+M_1 = 2.0
 
 mix = setup.setup_mpp()
-print(reservoir(5000.,10000.,4319.4480729,1.0e-05,mix))
+setup.mixture_states(mix)["reservoir"].equilibrate(T_1,p_1)
+v_1 = M_1*setup.mixture_states(mix)["reservoir"].equilibriumSoundSpeed()
+h_1 = setup.mixture_states(mix)["reservoir"].mixtureHMass() + (0.5*v_1**2)
+s_1 = setup.mixture_states(mix)["reservoir"].mixtureSMass()
+
+print(reservoir(T_1,p_1,h_1,s_1,1.0e-06,mix,"reservoir",options))
