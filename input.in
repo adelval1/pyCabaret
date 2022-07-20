@@ -3,7 +3,7 @@ REBUILDING OPTION
 ---------------------------------
 Inverse
 -
-False
+True
 -
 ---------------------------------
 MIXTURE OPTIONS
@@ -118,7 +118,7 @@ Number of starting points
 -
 Print steps
 -
-No
+Yes
 -
 ---------------------------------
 MODULES PARAMETERS
@@ -156,10 +156,6 @@ Shocking
 Initial ratio
 -
 0.2
--
-Initial pressure
--
-100.0
 -
 Robust
 -

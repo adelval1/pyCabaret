@@ -1,10 +1,10 @@
 import mutationpp as mpp
 import rebuilding_setup as setup
-import reservoir as res
-import massflow as msfl
-import shock as sck
-import heatflux as htfl
-import total as ttl
+from reservoir import reservoir
+from massflow import massflow
+from shock import shock
+from heatflux import heatflux
+from total import total
 import time
 
 def forward(preshock_state,resmin,A_t,reff,T_w,pr,L,mix,print_info,options):
@@ -22,20 +22,20 @@ def forward(preshock_state,resmin,A_t,reff,T_w,pr,L,mix,print_info,options):
     h_1 = setup.mixture_states(mix)["free_stream"].mixtureHMass() + (0.5*v_1**2)
     s_1 = setup.mixture_states(mix)["free_stream"].mixtureSMass()
 
-    T0,p0,v0 = res.reservoir(T_1,p_1,h_1,s_1,resmin,mix,"reservoir",options["reservoir"])
+    T0,p0,v0 = reservoir(T_1,p_1,h_1,s_1,resmin,mix,"reservoir",options["reservoir"])
 
-    mf = msfl.massflow(T_1,p_1,h_1,s_1,A_t,resmin,mix,"throat",options["massflow"])
+    mf = massflow(T_1,p_1,h_1,s_1,A_t,resmin,mix,"throat",options["massflow"])
 
-    T_2,p_2,v_2 = sck.shock(preshock_state,mix,options["shocking"])
+    T_2,p_2,v_2 = shock(preshock_state,mix,options["shocking"])
 
-    Tt2,pt2,vt2 = ttl.total(T_2,p_2,v_2,resmin,mix,"total",options["total"])
+    Tt2,pt2,vt2 = total(T_2,p_2,v_2,resmin,mix,"total",options["total"])
 
     start_time = time.time()
     setup.mixture_states(mix)["total"].equilibrate(Tt2,pt2)
     ht2 = setup.mixture_states(mix)["total"].mixtureHMass()
     rhot2 = setup.mixture_states(mix)["total"].density()
 
-    qw = htfl.heatflux(mix, pr, L, p_1, pt2, Tt2, ht2, reff, T_w)
+    qw = heatflux(mix, pr, L, p_1, pt2, Tt2, ht2, reff, T_w)
 
     measurements = {"Reservoir_temperature": T0, 
                     "Reservoir_pressure": p0, 

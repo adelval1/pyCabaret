@@ -1,5 +1,5 @@
 import numpy as np
-import module_forward as frwd
+from module_forward import module_forward
 import scipy
 from scipy.optimize import minimize
 
@@ -22,7 +22,7 @@ def inverse_minimize(preshock_state_var,meas,dict,mix): # meas is list of names
 
     preshock_state = denormalization(preshock_state_var,[20000.,50000.,20.],[300.,50.,1.01])
 
-    measurements_dict = frwd.module_forward(preshock_state,dict["residual"],dict["throat_area"],dict["effective_radius"],dict["surface_temperature"],dict["Prandtl"],dict["Lewis"],mix,dict["measurements"],dict["print_info"],dict["options"])
+    measurements_dict = module_forward(preshock_state,dict["residual"],dict["throat_area"],dict["effective_radius"],dict["surface_temperature"],dict["Prandtl"],dict["Lewis"],mix,dict["measurements"],dict["print_info"],dict["options"])
 
     res = [(dict["simulated_measurements"][meas[i]] - measurements_dict[meas[i]])/dict["simulated_measurements"][meas[i]] for i in range(len(meas))]
     res_norm = np.linalg.norm(res)
@@ -36,7 +36,7 @@ def vect_inverse_minimize(preshock_state_var,meas,dict,mix): # meas is list of n
 
     preshock_state = denormalization(preshock_state_var,[20000.,50000.,20.],[300.,50.,1.01])
 
-    measurements_dict = frwd.module_forward(preshock_state,dict["residual"],dict["throat_area"],dict["effective_radius"],dict["surface_temperature"],dict["Prandtl"],dict["Lewis"],mix,dict["measurements"],dict["print_info"],dict["options"])
+    measurements_dict = module_forward(preshock_state,dict["residual"],dict["throat_area"],dict["effective_radius"],dict["surface_temperature"],dict["Prandtl"],dict["Lewis"],mix,dict["measurements"],dict["print_info"],dict["options"])
 
     res = [(dict["simulated_measurements"][meas[i]] - measurements_dict[meas[i]])/dict["simulated_measurements"][meas[i]] for i in range(len(meas))]
     res_norm = [np.linalg.norm(res[i]) for i in range(3)]

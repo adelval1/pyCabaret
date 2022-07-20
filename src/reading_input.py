@@ -24,12 +24,11 @@ def reading_input():
                                     "massflow": {"pressure": float(lines[147].strip()), 
                                                  "temperature": float(lines[143].strip()),
                                                  "robust": lines[151].strip()},
-                                    "shocking": {"pressure": float(lines[161].strip()), 
-                                                 "ratio": float(lines[157].strip()),
-                                                 "robust": lines[165].strip()},
-                                    "total":    {"pressure": float(lines[175].strip()), 
-                                                 "temperature": float(lines[171].strip()),
-                                                 "robust": lines[179].strip()}
+                                    "shocking": {"ratio": float(lines[157].strip()),
+                                                 "robust": lines[161].strip()},
+                                    "total":    {"pressure": float(lines[171].strip()), 
+                                                 "temperature": float(lines[167].strip()),
+                                                 "robust": lines[175].strip()}
                         }
 
     }

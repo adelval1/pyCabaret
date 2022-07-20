@@ -1,5 +1,4 @@
 import numpy as np 
-import mutationpp as mpp
 import rebuilding_setup as setup
 import enthalpy_entropy_solver as solver
 
@@ -11,6 +10,3 @@ def massflow(T_1,p_1,h_1,s_1,A_t,resmin,mix,state,options):
     mf = setup.mixture_states(mix)[state].density()*v_t*A_t
 
     return mf
-
-# mix = setup.setup_mpp()
-# print(massflow(5000.,10000.,4319.4480729,9.621e-04,1.0e-06,mix))

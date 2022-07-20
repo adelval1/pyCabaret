@@ -1,6 +1,6 @@
 import numpy as np
-import inverse as inv
-import forward as forw
+from inverse import inverse
+from forward import forward
 import rebuilding_setup as setup
 import reading_input as input_data
 import time
@@ -11,11 +11,11 @@ input_dict = input_data.reading_input()
 mix = setup.setup_mpp()
 
 if input_dict["inverse"] == 'True':
-    output = inv.inverse(input_dict["measurements"],input_dict,mix)
+    output = inverse(input_dict["measurements"],input_dict,mix)
     end_time=time.time()
     total_time = end_time-start_time
 
-    check_forward = forw.forward(output,input_dict["residual"],input_dict["throat_area"],input_dict["effective_radius"],input_dict["surface_temperature"],input_dict["Prandtl"],input_dict["Lewis"],mix,input_dict["print_info"],input_dict["options"])
+    check_forward = forward(output,input_dict["residual"],input_dict["throat_area"],input_dict["effective_radius"],input_dict["surface_temperature"],input_dict["Prandtl"],input_dict["Lewis"],mix,input_dict["print_info"],input_dict["options"])
 
     width = [(40-len(input_dict["measurements"][i])) for i in range(3)]
     string_width = ["{"+":>"+str(width[i])+".4f}" for i in range(3)]
@@ -42,7 +42,7 @@ if input_dict["inverse"] == 'True':
 
 else:
     preshock_state = [input_dict["freestream"]["Temperature"],input_dict["freestream"]["Pressure"],input_dict["freestream"]["Mach"]]
-    output = forw.forward(preshock_state,input_dict["residual"],input_dict["throat_area"],input_dict["effective_radius"],input_dict["surface_temperature"],input_dict["Prandtl"],input_dict["Lewis"],mix,input_dict["print_info"],input_dict["options"])
+    output = forward(preshock_state,input_dict["residual"],input_dict["throat_area"],input_dict["effective_radius"],input_dict["surface_temperature"],input_dict["Prandtl"],input_dict["Lewis"],mix,input_dict["print_info"],input_dict["options"])
     end_time=time.time()
     total_time = end_time-start_time
 
