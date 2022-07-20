@@ -63,7 +63,7 @@ def shock(preshock_state,mix,options):
     c = [mdot,momentum,E]
 
     # Initial Guess
-    ratio = options["ratio"] #0.2
+    ratio = options["ratio"]
     T_eq = preshock_state[0]
     p_eq = preshock_state[1]
     u_eq = v_1
@@ -88,9 +88,3 @@ def shock(preshock_state,mix,options):
     postshock_state = [var[0][0],var[1][0],v_eq[0]] # T, P, V
 
     return postshock_state[0],postshock_state[1],postshock_state[2]
-
-# mix = setup.setup_mpp()
-
-# preshock_state = [15000.0,10.0,8.0] # preshock_state = [T_1,p_1,v_1]
-
-# print(shock(preshock_state,mix))

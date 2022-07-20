@@ -41,7 +41,7 @@ Throat area
 -
 Prandtl number
 -
-0.7
+0.713
 -
 Lewis number
 -
@@ -169,13 +169,13 @@ Total quantities
 -
 Initial temperature
 -
-10.0
+1.0
 -
 Initial pressure
 -
-10000.0
+1.0
 -
 Robust
 -
-Yes
+No
 -

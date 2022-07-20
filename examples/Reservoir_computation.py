@@ -1,5 +1,4 @@
 import numpy as np
-import mutationpp as mpp 
 import sys
 
 # To run locally and find the modules in /src
