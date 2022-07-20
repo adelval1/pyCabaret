@@ -10,7 +10,7 @@ MIXTURE OPTIONS
 ---------------------------------
 Mixture type
 -
-air_11                                  Choose any mixture available in Mutation ++.
+air_11                                  Choose any mixture available in Mutation++.
 -
 Thermodynamics
 -
@@ -25,15 +25,15 @@ FORWARD INPUT PARAMETERS
 ---------------------------------
 Free stream temperature [K]
 -
-3500.0                                  In forward model this is the temperature imposed, in inverse mode this is the initial guess.
+3500.0                                  In forward mode this is the temperature imposed, in inverse mode this is the initial guess.
 -
 Free stream pressure [Pa]
 -
-5000.0                                  In forward model this is the pressure imposed, in inverse mode this is the initial guess.
+5000.0                                  In forward mode this is the pressure imposed, in inverse mode this is the initial guess.
 -
 Free stream Mach number
 -
-2.0                                     In forward model this is the Mach number imposed, in inverse mode this is the initial guess.
+2.0                                     In forward mode this is the Mach number imposed, in inverse mode this is the initial guess.
 -
 Throat area [m2]
 -
