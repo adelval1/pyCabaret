@@ -20,11 +20,8 @@ If they are used they should be cited as:
 
 **Bibtex**
 ```bibtex
-@phdthesis{del Val,
-	Author = {A. del Val},
-	School = {IPP/VKI},
-	Title = "{Bayesian calibration and assessment of gas-surface interaction models 
-    and experiments in atmospheric entry plasmas}",
-	Year = {2021}
+@inproceedings{cabaret,
+  title={Characterization of ground testing conditions in high enthalpy and plasma wind tunnels for aerospace missions},
+  author={del Val, A. and Magin, Thierry E and Dias, Bruno and Chazot, Olivier}
 }
 ```
