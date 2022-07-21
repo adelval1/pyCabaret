@@ -26,7 +26,9 @@ python cabaret.py
 
 where python is your python installation.
 
-The python wrapper for the Mutation++ library can be found on https://github.com/mutationpp/Mutationpp 
+The python wrapper for the Mutation++ library can be found on https://github.com/mutationpp/Mutationpp
+
+For help on understanding the input file you can go to /docs/explanatory_input.in. To check out a comprehensive example you can go to /examples and run the jupyter notebook.
 
 ## CABARET applications ##
 The theoretical aspects of the modules included in CABARET can be found in the following conference paper:
