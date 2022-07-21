@@ -6,6 +6,25 @@ from scipy.optimize import minimize
 resmin = 1.0e-06
 
 def inner_loop_temp(T,P,RHS,mix):
+    """
+    Function that loops over the temperature to match the enthalpy.
+
+    Parameters
+    ----------
+    T : float
+        Temperature.
+    P: float
+        Pressure.
+    RHS: float
+        Right Hand Side of the energy conservation equation which we seek to match.
+    mix: object
+        Mixture object.
+
+    Output
+    ----------   
+    dT: float
+        Temperature step.  
+    """
     if T<0.0: # To avoid unphysical values
         return 1.0e+16
     setup.mixture_states(mix)["post_shock"].equilibrate(T,P)
@@ -19,6 +38,37 @@ def inner_loop_temp(T,P,RHS,mix):
 
     
 def func_minimize(ratio,var,c,p_1,v_1,rho_1,h_1,T_1,mix,options):
+    """
+    Function that computes the differences in density ratios from one iteration to the next in order to solve the RH system.
+
+    Parameters
+    ----------
+    ratio : float
+        Density ratio.
+    var: 1D array of size 2
+        Temperature and pressure in the post-shock region.
+    c: 1D array of size 3
+        mass, momentum and energy of the pre-shock state, quantities to be conserved across the shock.
+    p_1: float
+        Free stream pressure.
+    v_1: float
+        Free stream velocity.
+    rho_1: float
+        Free stream density.
+    h_1: float
+        Free stream enthalpy.
+    T_1: float
+        Free stream temperature.
+    mix: object
+        Mixture.
+    options: dictionary
+        Options for the computation of the shocking module. Comes from the input file.
+
+    Output
+    ----------   
+    res_ratio: float 
+        Density ratio residual.  
+    """
 
     var[1] = p_1 + c[0]*v_1*(1.-ratio)
     rho_eq = rho_1/ratio
@@ -45,6 +95,23 @@ def func_minimize(ratio,var,c,p_1,v_1,rho_1,h_1,T_1,mix,options):
 
 
 def shock(preshock_state,mix,options):
+    """
+    Function that computes the post shock state.
+
+    Parameters
+    ----------
+    preshock_state : 1D array of size 2
+        Temperature and pressure of the pre shock state.
+    mix: object
+        Mixture.
+    options: dictionary
+        Options for the computation of the shocking module. Comes from the input file.
+
+    Output
+    ----------   
+    1D array of shape 3
+        Vector with the resulting post shock T,p and v.  
+    """
 
     ## Initialization ##
     setup.mixture_states(mix)["free_stream"].equilibrate(preshock_state[0],preshock_state[1])

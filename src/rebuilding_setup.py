@@ -2,6 +2,14 @@ import mutationpp as mpp
 import numpy as np
 
 def setup_mpp():
+    """
+    Function that sets up the mixture.
+
+    Output
+    ----------   
+    mix: object
+        Mixture object from the mpp module.     
+    """
 
     with open('../input.in', 'r') as f:
         lines = f.readlines()
@@ -21,6 +29,19 @@ def setup_mpp():
     return mix
 
 def mixture_states(mix):
+    """
+    Function that assigns the mixture to the different flow states: reservoir, free stream, post shock, total and nozzle throat.
+
+    Parameters
+    ----------
+    mix: object
+        Mixture object from the mpp module.
+
+    Output
+    ----------   
+    states: dictionary
+        Dictionary containing different mixtures for each flow state so they do not change each other's when invoking the "equilibrate" mutation function.     
+    """
     mix_freeStream = mix
     mix_ps = mix
     mix_total = mix

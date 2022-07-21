@@ -8,6 +8,37 @@ from total import total
 import time
 
 def module_forward(preshock_state,resmin,A_t,reff,T_w,pr,L,mix,meas,print_info,options):
+    """
+    Function that computes the quantities of interest from which to rebuild as specified by the input file from the free stream state.
+
+    Parameters
+    ----------
+    preshock_state : 1D array of size 3
+        Free stream temperature, pressure and Mach number.
+    resmin : float
+        Residual for convergence of all modules except shocking.
+    A_t: float
+        Throat area needed for mass flow computations in m^2.
+    reff: float
+        Effective radius in m.
+    T_w: float
+        Wall temperature in K.
+    pr: float
+        Prandtl number.
+    L: float
+        Lewis number
+    mix: object
+        Mixture object from the mpp module.
+    print_info: string
+        String that specifies if step information will be printed out.
+    options: dictionary
+        Dictionary of options for the different modules
+
+    Output
+    ----------   
+    measurements: dictionary
+        Dictionary containing the results of the invoked modules.     
+    """
     if print_info == "Yes":
         print(preshock_state)
 

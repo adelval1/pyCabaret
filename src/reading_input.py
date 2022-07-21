@@ -1,6 +1,15 @@
 
 ## function that populates a dictionary with the inputs ##
 def reading_input():
+    """
+    Function that reads the input file and produces a dictionary with all the information.
+
+    Output
+    ----------   
+    input_parameters: dictionary
+        Dictionary describing the information contained in the input file.    
+    """
+
     with open('../input.in', 'r') as f:
         lines = f.readlines()
 

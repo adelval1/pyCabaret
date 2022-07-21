@@ -6,6 +6,10 @@ from scipy.optimize import minimize
 from scipy import misc
 
 class enthalpy_entropy_solver:
+    """
+    Class to create a solver for the enthalpy, entropy conservation equations.
+  
+    """
 
     def __init__(self,resmin,h,s,mix,state,name,options):
         self.resmin = resmin
@@ -17,12 +21,51 @@ class enthalpy_entropy_solver:
         self.options = options
 
     def set_resmin(self,resmin):
+        """
+        Function to set a new residual.
+
+        Parameters
+        ----------
+        resmin : float
+            Residual.
+
+        Output
+        ----------   
+        self.resmin: float
+            Atribute for the residual.    
+        """
         self.resmin = resmin
 
-    def func_minimize(self,var,T,p,resini,constraint_type,constraints):
-        for i in range(len(var)):
-            if var[i]<0.0:
-                return 1.0e+16
+    def func_minimize(self,var,T,p,resini,robust_choice): 
+        """
+        Function that computes the minimization metric of the total enthalpy-entropy equations system.
+
+        Parameters
+        ----------
+        var : 1D array of size 2.
+            Proportional variables for temperature and pressure.
+        T : float
+            Temperature.
+        p: float
+            Pressure.
+        resini: float
+            Initial residual.
+        robust_choice: string
+            String reflecting if the optimization problem should be solved using Newton-flavoured methods or gradient-free.
+
+        Output
+        ----------   
+        metric: float or 1D array of shape 3
+            Float or vector with the resulting metric.  
+        """
+        if robust_choice == "No":
+            for i in range(len(var)):
+                if var[i]<0.0:
+                    return [1.0e+16]*len(var)
+        else:
+            for i in range(len(var)):
+                if var[i]<0.0:
+                    return 1.0e+16
 
         real = [var[0]*T,var[1]*p]
 
@@ -34,49 +77,71 @@ class enthalpy_entropy_solver:
         s_0 = setup.mixture_states(self.mix)[self.state].mixtureSMass()
 
         residual = [(h_0-self.h)/self.h, (s_0-self.s)/self.s]
-        metric = np.linalg.norm(residual)/resini
+
+        if robust_choice == "No":
+            metric = [np.linalg.norm(residual[i]) for i in range(len(residual))]
+        else:
+            metric = np.linalg.norm(residual)/resini
         return metric
 
-    def vect_func_minimize(self,var,T,p,resini,constraint_type,constraints):
-        for i in range(len(var)):
-            if var[i]<0.0:
-                return [1.0e+16]*len(var)
+    def jacobian(self,var,T,p,resini):
+        """
+        Function that computes the Jacobian matrix.
 
-        real = [var[0]*T,var[1]*p]
+        Parameters
+        ----------
+        var : 1D array of size 2.
+            Proportional variables for temperature and pressure.
+        T : float
+            Temperature.
+        p: float
+            Pressure.
+        resini: float
+            Initial residual.
 
-        setup.mixture_states(self.mix)[self.state].equilibrate(real[0],real[1])
-        if self.v0 !=0.:
-            self.v0 = setup.mixture_states(self.mix)[self.state].equilibriumSoundSpeed()
-        
-        h_0 = setup.mixture_states(self.mix)[self.state].mixtureHMass() + (0.5*(self.v0**2))
-        s_0 = setup.mixture_states(self.mix)[self.state].mixtureSMass()
-
-        residual = [(h_0-self.h)/self.h, (s_0-self.s)/self.s]
-        metric = [np.linalg.norm(residual[i]) for i in range(len(residual))]
-        return metric
-
-    def jacobian(self,var,T,p,resini,constraint_type,constraints):
-        jacob = scipy.optimize.approx_fprime(var,self.func_minimize,1.0e-10,T,p,resini,constraint_type,constraints)
+        Output
+        ----------   
+        jacob: ndarray or matrix of shape (2,2)
+            Jacobian matrix.    
+        """
+        jacob = scipy.optimize.approx_fprime(var,self.func_minimize,1.0e-10,T,p,resini)
         return jacob
 
-    def solution(self,T,p,constraint_type,constraints,v_0=0.):
+    def solution(self,T,p,v_0=0.):
+        """
+        Function that computes the solution of the total enthalpy-entropy equations system.
+
+        Parameters
+        ----------
+        T : float
+            Temperature.
+        p: float
+            Pressure.
+        v_0: float
+            Velocity. Set to 0 as default.
+
+        Output
+        ----------   
+        1D array of shape 3
+            Vector with the resulting T,p and v.  
+        """
 
         ## Initial conditions ##
         var =[self.options["temperature"],self.options["pressure"]] #[10.,100.]
         self.v0=v_0
         resini = 1.0
-        resini = self.func_minimize(var,T,p,resini,constraint_type,constraints)
+        resini = self.func_minimize(var,T,p,resini,self.options["robust"])
 
         bnds = ((1.0, None), (1.0, None)) 
         options={'maxiter': None}
         if self.options["robust"] == "Yes":
-            result = scipy.optimize.minimize(self.func_minimize,var,args=(T,p,resini,constraint_type,constraints),method='Powell',tol=self.resmin,bounds=bnds,options=options)
+            result = scipy.optimize.minimize(self.func_minimize,var,args=(T,p,resini,self.options["robust"]),method='Powell',tol=self.resmin,bounds=bnds,options=options)
 
             if result.success == False:
                 print("Warning: convergence not guaranteed for"+' '+self.name)
 
         else:
-            result = scipy.optimize.root(self.vect_func_minimize,var,args=(T,p,resini,constraint_type,constraints),tol=self.resmin)
+            result = scipy.optimize.root(self.func_minimize,var,args=(T,p,resini,self.options["robust"]),tol=self.resmin)
 
             if result.success == False:
                 print("Warning: convergence not guaranteed for"+' '+self.name)
