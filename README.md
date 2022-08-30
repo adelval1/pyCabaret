@@ -37,7 +37,7 @@ Once Mutation++ is installed, you need to get a local python module built in ord
  pip install scikit-build
  ```
 
-* We will use the file `setup.py` automatically provided with Mutation++ in order to generate the package (use python or python3 depending on your local installation):
+* We will use the file `setup.py` provided with Mutation++ in order to generate the package (use python or python3 depending on your local installation):
 
  ```
  python3 setup.py build
