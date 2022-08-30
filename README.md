@@ -14,7 +14,7 @@ CABARET works hand in hand with the Mutation++ library https://github.com/mutati
                &Mutation::Mixture::mixtureSMass),
            "Returns the mixture averaged entropy in J/kg-K.")
 ```
-* Type in the build directory inside your Mutationpp folder
+* Type in the terminal in the build directory inside your Mutationpp folder
 ```
 ccmake ..
 ```
