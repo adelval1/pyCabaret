@@ -4,9 +4,9 @@
 
 ## Installation and requirements ##
 
-CABARET works hand in hand with the Mutation++ library https://github.com/mutationpp/Mutationpp. For CABARET to work you need to make sure several things work with Mutation++. 
+CABARET works hand in hand with the Mutation++ library https://github.com/mutationpp/Mutationpp. For CABARET to work, you need to make sure several things work with Mutation++. 
 
-* First, download Mutation++ from the link above. 
+* First, download and install Mutation++ from the link above. 
 * Subsequently, add this snippet of code to the file "Mutationpp/interface/python/src/pyMixture.cpp"
 ```
 .def("mixtureSMass",
@@ -20,24 +20,24 @@ ccmake ..
 ```
 and turn BUILD_PYTHON_WRAPPER from OFF to ON.
 
-* Compile Mutation++
+* Compile Mutation++.
 
 Once Mutation++ is installed, you need to get a local python module built in order to use it in Python.
 
-* To compile the wrapper we need [pybind11](https://github.com/pybind/pybind11) in `thirdparty/pybind11`:
+* To compile the wrapper you need [pybind11](https://github.com/pybind/pybind11) in `thirdparty/pybind11`:
 
  ```
  git submodule add -b stable ../../pybind/pybind11 thirdparty/pybind11
  git submodule update --init
  ```
 
-* and  [scikit-build](https://scikit-build.readthedocs.io/en/latest/installation.html#install-package-with-pip):
+* and  [scikit-build](https://scikit-build.readthedocs.io/en/latest/installation.html#install-package-with-pip) (use pip or pip3 depending on yout local installation):
 
  ```
  pip install scikit-build
  ```
 
-* We will use the file `setup.py` automatically provided by the library in order to generate the package:
+* We will use the file `setup.py` automatically provided by the library in order to generate the package (use python or python 3 depending on your local installation):
 
  ```
  python3 setup.py build
