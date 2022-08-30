@@ -31,13 +31,13 @@ Once Mutation++ is installed, you need to get a local python module built in ord
  git submodule update --init
  ```
 
-* and  [scikit-build](https://scikit-build.readthedocs.io/en/latest/installation.html#install-package-with-pip) (use pip or pip3 depending on yout local installation):
+* and  [scikit-build](https://scikit-build.readthedocs.io/en/latest/installation.html#install-package-with-pip) (use pip or pip3 depending on your local installation):
 
  ```
  pip install scikit-build
  ```
 
-* We will use the file `setup.py` automatically provided by the library in order to generate the package (use python or python 3 depending on your local installation):
+* We will use the file `setup.py` automatically provided with the library in order to generate the package (use python or python3 depending on your local installation):
 
  ```
  python3 setup.py build
