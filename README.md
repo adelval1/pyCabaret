@@ -4,6 +4,53 @@
 
 ## Installation and requirements ##
 
+CABARET works hand in hand with the Mutation++ library https://github.com/mutationpp/Mutationpp. For CABARET to work you need to make sure several things work with Mutation++. 
+
+* First, download Mutation++ from the link above. 
+* Subsequently, add this snippet of code to the file "Mutationpp/interface/python/src/pyMixture.cpp"
+```
+.def("mixtureSMass",
+           static_cast<double (Mutation::Mixture::*)(void) const>(
+               &Mutation::Mixture::mixtureSMass),
+           "Returns the mixture averaged entropy in J/kg-K.")
+```
+* Type in the build directory inside your Mutationpp folder
+```
+ccmake ..
+```
+and turn BUILD_PYTHON_WRAPPER from OFF to ON.
+
+* Compile Mutation++
+
+Once Mutation++ is installed, you need to get a local python module built in order to use it in Python.
+
+* To compile the wrapper we need [pybind11](https://github.com/pybind/pybind11) in `thirdparty/pybind11`:
+
+ ```
+ git submodule add -b stable ../../pybind/pybind11 thirdparty/pybind11
+ git submodule update --init
+ ```
+
+* and  [scikit-build](https://scikit-build.readthedocs.io/en/latest/installation.html#install-package-with-pip):
+
+ ```
+ pip install scikit-build
+ ```
+
+* We will use the file `setup.py` automatically provided by the library in order to generate the package:
+
+ ```
+ python3 setup.py build
+ ```
+
+*The procedure might take some minutes to complete. The built package is in `_skbuild/[your_distribution]/cmake-install/interface/python/mutationpp` (NOTE:  `your_distribution` varies with the OS you are using, e.g. `macosx-12.0-arm64-3.9`, `linux-x86_64-3.7` and the architecture used e.g. `macosx-12.0-x86_64-3.9`: be sure you check the name of the folder automatically generated in  `_skbuild/`); now you only need to [import](https://fortierq.github.io/python-import/) the package in your Python script. 
+A (tested) suggestion for it:
+* Define a system variable 
+```
+export MPP_LOCALPY=$MPP_DIRECTORY/_skbuild/[your_distribution]/cmake-install/interface/python/mutationpp
+```
+* Close the terminal or `source` the right file (`.bashrc`, `.zprofile`, `.bash_profile`)
+
 To install CABARET just do in your terminal in the directory of your choice
 
 ```

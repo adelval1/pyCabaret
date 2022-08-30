@@ -1,5 +1,5 @@
 import numpy as np 
-import mutationpp as mpp
+import _mutationpp as mpp
 import rebuilding_setup as setup
 import scipy
 from scipy.optimize import minimize

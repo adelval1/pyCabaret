@@ -1,3 +1,10 @@
+## Importing local mutationpp python module ##
+import sys
+import os
+mppPyDir=os.environ.get('MPP_LOCALPY')
+sys.path.append(mppPyDir)
+##
+
 import numpy as np
 from inverse import inverse
 from forward import forward
