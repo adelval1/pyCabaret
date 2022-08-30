@@ -22,7 +22,7 @@ and turn BUILD_PYTHON_WRAPPER from OFF to ON.
 
 * Compile Mutation++.
 
-Once Mutation++ is installed, you need to get a local python module built in order to use it in Python.
+Once Mutation++ is installed, you need to get a local python module built in order to use it in Python. From your Mutationpp directory
 
 * To compile the wrapper you need [pybind11](https://github.com/pybind/pybind11) in `thirdparty/pybind11`:
 
@@ -43,13 +43,15 @@ Once Mutation++ is installed, you need to get a local python module built in ord
  python3 setup.py build
  ```
 
-The procedure might take some minutes to complete. The built package is in `_skbuild/[your_distribution]/cmake-install/interface/python/mutationpp` (NOTE:  `your_distribution` varies with the OS you are using, e.g. `macosx-12.0-arm64-3.9`, `linux-x86_64-3.7` and the architecture used e.g. `macosx-12.0-x86_64-3.9`: be sure you check the name of the folder automatically generated in  `_skbuild/`); now you only need to [import](https://fortierq.github.io/python-import/) the package in your Python script. 
-A (tested) suggestion for it:
-* Define a system variable in the right file for you (`.bashrc`, `.zprofile`, `.bash_profile`).
+The procedure might take some minutes to complete. The built package is in `_skbuild/[your_distribution]/cmake-install/interface/python/mutationpp` (NOTE:  `your_distribution` varies with the OS you are using, e.g. `macosx-12.0-arm64-3.9`, `linux-x86_64-3.7` and the architecture used e.g. `macosx-12.0-x86_64-3.9`: be sure you check the name of the folder automatically generated in  `_skbuild/`); now you only need to
+
+* Define a system variable in the right file for you (`.bashrc`, `.zprofile`, `.bash_profile`, `.zshrc`).
 ```
 export MPP_LOCALPY=$MPP_DIRECTORY/_skbuild/[your_distribution]/cmake-install/interface/python/mutationpp
 ```
-* Close the terminal or `source` the right file (`.bashrc`, `.zprofile`, `.bash_profile`).
+* Close the terminal or `source` the right file (`.bashrc`, `.zprofile`, `.bash_profile`, `.zshrc`).
+
+Your local Mutation++ Python module is now readily accessible by CABARET.
 
 To install CABARET just do in your terminal in the directory of your choice
 
