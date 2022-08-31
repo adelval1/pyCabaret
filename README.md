@@ -77,6 +77,21 @@ where python is your python installation.
 
 For help on understanding the input file you can go to /docs/explanatory_input.in. To check out a comprehensive example you can go to /examples and run the jupyter notebook.
 
+## Installation with pip ##
+
+
+````shell
+  cd pyropy
+  pip install -e .
+````
+
+If you want to contribute to the project, plase activate the pre-commit hooks with:
+
+````shell
+  pre-commit install
+````
+
+
 ## CABARET applications ##
 The theoretical aspects of the modules included in CABARET can be found in the following conference paper:
 

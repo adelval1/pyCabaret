@@ -2,7 +2,7 @@ import numpy as np
 import sys
 
 # To run locally and find the modules in /src
-cabaret_src_folder = '/Users/anabel/Documents/PhD/Code/pyCabaret/src'
+cabaret_src_folder = '../src'
 sys.path.insert(0, cabaret_src_folder)
 
 from reservoir import reservoir

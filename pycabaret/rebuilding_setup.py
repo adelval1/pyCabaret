@@ -1,4 +1,4 @@
-import _mutationpp as mpp
+import mutationpp as mpp
 import numpy as np
 
 def setup_mpp():
