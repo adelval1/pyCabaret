@@ -5,7 +5,7 @@ import sys
 
 mppPyDir = os.environ.get("MPP_LOCALPY")
 sys.path.append(mppPyDir)
-##
+
 
 from pycabaret.inverse import inverse
 from pycabaret.forward import forward
