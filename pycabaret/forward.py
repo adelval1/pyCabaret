@@ -41,7 +41,7 @@ def forward(preshock_state, resmin, A_t, reff, T_w, pr, L, mix, print_info, opti
         Dictionary containing the results of all modules.
     """
 
-    if print_info == "Yes":
+    if print_info:
         print(preshock_state)
 
     T_1 = preshock_state[0]

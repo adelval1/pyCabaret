@@ -1,4 +1,8 @@
 ## function that populates a dictionary with the inputs ##
+
+import yaml
+
+
 def reading_input(input_filename):
     """
     Function that reads the input file and produces a dictionary with all the information.
@@ -9,55 +13,61 @@ def reading_input(input_filename):
         Dictionary describing the information contained in the input file.
     """
 
+    with open("input.yaml") as f:
+        data = yaml.load(f, Loader=yaml.FullLoader)
+
     with open(f"{input_filename}", "r") as f:
         lines = f.readlines()
 
     input_parameters = {
         "freestream": {
-            "Temperature": float(lines[27].strip()),
-            "Pressure": float(lines[31].strip()),
-            "Mach": float(lines[35].strip()),
+            "Temperature": data["FORWARD INPUT"]["Free stream temperature"],
+            "Pressure": data["FORWARD INPUT"]["Free stream pressure"],
+            "Mach": data["FORWARD INPUT"]["Free stream Mach number"],
         },
         "simulated_measurements": {
-            "Heat_flux": float(lines[72].strip()),
-            "Stagnation_pressure": float(lines[76].strip()),
-            "Reservoir_pressure": float(lines[80].strip()),
-            "Reservoir_temperature": float(lines[84].strip()),
-            "Total_enthalpy": float(lines[88].strip()),
-            "Stagnation_density": float(lines[92].strip()),
-            "Free_stream_density": float(lines[96].strip()),
-            "Mass_flow": float(lines[100].strip()),
-            "Free_stream_velocity": float(lines[104].strip()),
-            "Free_stream_pressure": float(lines[31].strip()),
+            "Heat_flux": data["INVERSE INPUT"]["Heat flux"],
+            "Stagnation_pressure": data["INVERSE INPUT"]["Stagnation pressure"],
+            "Reservoir_pressure": data["INVERSE INPUT"]["Reservoir pressure"],
+            "Reservoir_temperature": data["INVERSE INPUT"]["Reservoir temperature"],
+            "Total_enthalpy": data["INVERSE INPUT"]["Total enthalpy"],
+            "Stagnation_density": data["INVERSE INPUT"]["Stagnation density"],
+            "Free_stream_density": data["INVERSE INPUT"]["Free stream density"],
+            "Mass_flow": data["INVERSE INPUT"]["Mass flow"],
+            "Free_stream_velocity": data["INVERSE INPUT"]["Free stream velocity"],
+            "Free_stream_pressure": data["FORWARD INPUT"]["Free stream pressure"],
         },
-        "residual": float(lines[62].strip()),
-        "throat_area": float(lines[39].strip()),
-        "surface_temperature": float(lines[55].strip()),
-        "Prandtl": float(lines[43].strip()),
-        "Lewis": float(lines[47].strip()),
-        "effective_radius": float(lines[51].strip()),
-        "inverse": lines[5].strip(),
-        "measurements": [lines[66].strip(), lines[67].strip(), lines[68].strip()],
-        "method": lines[108].strip(),
-        "maxiter": int(lines[112].strip()),
-        "start_points": int(lines[116].strip()),
-        "print_info": lines[120].strip(),
+        "residual": data["INVERSE INPUT"]["Residual"],
+        "throat_area": data["FORWARD INPUT"]["Throat area"],
+        "surface_temperature": data["FORWARD INPUT"]["Surface temperature"],
+        "Prandtl": data["FORWARD INPUT"]["Prandtl number"],
+        "Lewis": data["FORWARD INPUT"]["Lewis number"],
+        "effective_radius": data["FORWARD INPUT"]["Effective radius"],
+        "inverse": data["Inverse Rebuilding"],
+        "measurements": data["INVERSE INPUT"]["Measurements to rebuild from"],
+        "method": data["INVERSE INPUT"]["Optimization method"],
+        "maxiter": data["INVERSE INPUT"]["Maximum number of iterations"],
+        "start_points": data["INVERSE INPUT"]["Number of starting points"],
+        "print_info": data["INVERSE INPUT"]["Print steps"],
         "options": {
             "reservoir": {
-                "pressure": float(lines[133].strip()),
-                "temperature": float(lines[129].strip()),
-                "robust": lines[137].strip(),
+                "pressure": data["Reservoir Parameters"]["Initial pressure"],
+                "temperature": data["Reservoir Parameters"]["Initial temperature"],
+                "robust": data["Reservoir Parameters"]["Robust"],
             },
             "massflow": {
-                "pressure": float(lines[147].strip()),
-                "temperature": float(lines[143].strip()),
-                "robust": lines[151].strip(),
+                "pressure": data["Mass flow parameters"]["Initial pressure"],
+                "temperature": data["Mass flow parameters"]["Initial temperature"],
+                "robust": data["Mass flow parameters"]["Robust"],
             },
-            "shocking": {"ratio": float(lines[157].strip()), "robust": lines[161].strip()},
+            "shocking": {
+                "ratio": data["Shock parameters"]["Initial ratio"],
+                "robust": data["Shock parameters"]["Robust"],
+            },
             "total": {
-                "pressure": float(lines[171].strip()),
-                "temperature": float(lines[167].strip()),
-                "robust": lines[175].strip(),
+                "pressure": data["Total quantities"]["Initial pressure"],
+                "temperature": data["Total quantities"]["Initial temperature"],
+                "robust": data["Total quantities"]["Robust"],
             },
         },
     }

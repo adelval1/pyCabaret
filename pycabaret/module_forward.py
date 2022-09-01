@@ -30,8 +30,8 @@ def module_forward(preshock_state, resmin, A_t, reff, T_w, pr, L, mix, meas, pri
         Lewis number
     mix: object
         Mixture object from the mpp module.
-    print_info: string
-        String that specifies if step information will be printed out.
+    print_info: bool
+        Specifies if step information will be printed out.
     options: dictionary
         Dictionary of options for the different modules
 
@@ -40,7 +40,7 @@ def module_forward(preshock_state, resmin, A_t, reff, T_w, pr, L, mix, meas, pri
     measurements: dictionary
         Dictionary containing the results of the invoked modules.
     """
-    if print_info == "Yes":
+    if print_info:
         print(preshock_state)
 
     T_1 = preshock_state[0]

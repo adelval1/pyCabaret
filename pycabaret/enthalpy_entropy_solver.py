@@ -59,7 +59,8 @@ class enthalpy_entropy_solver:
         metric: float or 1D array of shape 3
             Float or vector with the resulting metric.
         """
-        if robust_choice == "No":
+        # print(f'robust choice: {robust_choice}')
+        if not robust_choice:
             for i in range(len(var)):
                 if var[i] < 0.0:
                     return [1.0e16] * len(var)
@@ -79,7 +80,7 @@ class enthalpy_entropy_solver:
 
         residual = [(h_0 - self.h) / self.h, (s_0 - self.s) / self.s]
 
-        if robust_choice == "No":
+        if not robust_choice:
             metric = [np.linalg.norm(residual[i]) for i in range(len(residual))]
         else:
             metric = np.linalg.norm(residual) / resini
@@ -135,7 +136,8 @@ class enthalpy_entropy_solver:
 
         bnds = ((1.0, None), (1.0, None))
         options = {"maxiter": None}
-        if self.options["robust"] == "Yes":
+
+        if self.options["robust"]:
             result = scipy.optimize.minimize(
                 self.func_minimize,
                 var,
@@ -146,7 +148,7 @@ class enthalpy_entropy_solver:
                 options=options,
             )
 
-            if result.success == False:
+            if not result.success:
                 print("Warning: convergence not guaranteed for" + " " + self.name)
 
         else:
@@ -154,7 +156,7 @@ class enthalpy_entropy_solver:
                 self.func_minimize, var, args=(T, p, resini, self.options["robust"]), tol=self.resmin
             )
 
-            if result.success == False:
+            if not result.success:
                 print("Warning: convergence not guaranteed for" + " " + self.name)
 
         if self.v0 != 0.0:

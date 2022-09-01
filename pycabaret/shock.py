@@ -77,7 +77,7 @@ def func_minimize(ratio, var, c, p_1, v_1, rho_1, h_1, T_1, mix, options):
     RHS = h_1 + (0.5 * v_1 * v_1 * (1.0 - (ratio * ratio)))
 
     init = var[0]
-    if options["robust"] == "Yes":
+    if options["robust"]:
         temp_loop = scipy.optimize.minimize(
             inner_loop_temp, var[0], args=(var[1], RHS, mix), method="Nelder-Mead", tol=resmin
         )
@@ -140,7 +140,7 @@ def shock(preshock_state, mix, options):
 
     # Outer loop for Mass/Momentum
     ratio_init = ratio
-    if options["robust"] == "Yes":
+    if options["robust"]:
         result = scipy.optimize.minimize(
             func_minimize,
             ratio_init,
