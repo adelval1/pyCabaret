@@ -16,7 +16,7 @@ def setup_mpp():
 
     path_to_this_file = os.path.dirname(os.path.realpath(__file__))
 
-    with open("input.yaml") as f:
+    with open(f"{path_to_this_file}/input.yaml") as f:
         data = yaml.load(f, Loader=yaml.FullLoader)
 
     mixture = data["MIXTURE"]["Type"]
