@@ -1,6 +1,7 @@
 import os
 
 import mutationpp as mpp
+import yaml
 
 
 def setup_mpp():
@@ -15,12 +16,12 @@ def setup_mpp():
 
     path_to_this_file = os.path.dirname(os.path.realpath(__file__))
 
-    with open(f"{path_to_this_file}/input.in", "r") as f:
-        lines = f.readlines()
+    with open("input.yaml") as f:
+        data = yaml.load(f, Loader=yaml.FullLoader)
 
-    mixture = lines[12].strip()
-    thermo = lines[16].strip()
-    state = lines[20].strip()
+    mixture = data["MIXTURE"]["Type"]
+    thermo = data["MIXTURE"]["Thermodynamics"]
+    state = data["MIXTURE"]["State model"]
 
     ## Setting up Mutation++ options and mixture
     opts = mpp.MixtureOptions(mixture)

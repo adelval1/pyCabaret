@@ -16,9 +16,6 @@ def reading_input(input_filename):
     with open("input.yaml") as f:
         data = yaml.load(f, Loader=yaml.FullLoader)
 
-    with open(f"{input_filename}", "r") as f:
-        lines = f.readlines()
-
     input_parameters = {
         "freestream": {
             "Temperature": data["FORWARD INPUT"]["Free stream temperature"],
