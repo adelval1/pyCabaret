@@ -71,7 +71,7 @@ def main():
 
         print("------------------" + "\n")
         print("...reproduce these observations..." + "\n")
-        print(f'{input_dict["measurements"][0]} \t  {check_forward[input_dict["measurements"][0]]}'.expandtabs(28))
+        print(f'{input_dict["measurements"][0]} \t {check_forward[input_dict["measurements"][0]]}'.expandtabs(28))
         print(f'{input_dict["measurements"][1]} \t {check_forward[input_dict["measurements"][1]]}'.expandtabs(28))
         print(f'{input_dict["measurements"][2]} \t {check_forward[input_dict["measurements"][2]]}'.expandtabs(28))
         print("------------------" + "\n")
