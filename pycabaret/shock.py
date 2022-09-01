@@ -1,7 +1,8 @@
 import numpy as np
 import scipy
-import pycabaret.rebuilding_setup as setup
 from scipy.optimize import minimize
+
+import pycabaret.rebuilding_setup as setup
 
 resmin = 1.0e-06
 

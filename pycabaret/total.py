@@ -1,6 +1,5 @@
-import numpy as np
-import pycabaret.rebuilding_setup as setup
 import pycabaret.enthalpy_entropy_solver as solver
+import pycabaret.rebuilding_setup as setup
 
 
 def total(T, p, v, resmin, mix, state, options):

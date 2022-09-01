@@ -1,13 +1,12 @@
 ## Importing local mutationpp python module ##
 import argparse
-import sys
 import os
+import sys
 
 mppPyDir = os.environ.get("MPP_LOCALPY")
 sys.path.append(mppPyDir)
 ##
 
-import numpy as np
 from pycabaret.inverse import inverse
 from pycabaret.forward import forward
 import pycabaret.rebuilding_setup as setup
@@ -20,8 +19,8 @@ mix = setup.setup_mpp()
 
 
 def main():
-    parser = argparse.ArgumentParser(description='Enter filename')
-    parser.add_argument('-f', '--filename', default='input.in', help='Filename of input parameters', type=str)
+    parser = argparse.ArgumentParser(description="Enter filename")
+    parser.add_argument("-f", "--filename", default="input.in", help="Filename of input parameters", type=str)
     args = parser.parse_args()
 
     filename = args.filename
