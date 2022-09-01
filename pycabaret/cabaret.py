@@ -2,18 +2,16 @@
 import argparse
 import os
 import sys
+
 from .time_it import timing
 
 mppPyDir = os.environ.get("MPP_LOCALPY")
 sys.path.append(mppPyDir)
 
-
 from pycabaret.inverse import inverse
 from pycabaret.forward import forward
 import pycabaret.rebuilding_setup as setup
 import pycabaret.reading_input as input_data
-import time
-
 
 mix = setup.setup_mpp()
 
