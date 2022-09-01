@@ -1,25 +1,16 @@
-import numpy as np
-import sys
+import pycabaret.rebuilding_setup as setup
+from pycabaret.reservoir import reservoir
 
-# To run locally and find the modules in /src
-cabaret_src_folder = '/Users/anabel/Documents/PhD/Code/pyCabaret/src'
-sys.path.insert(0, cabaret_src_folder)
-
-from reservoir import reservoir
-import rebuilding_setup as setup
-
-options = {"pressure": 10000.0, 
-           "temperature": 100.0,
-           "robust": "Yes"}
+options = {"pressure": 10000.0, "temperature": 100.0, "robust": "Yes"}
 
 T_1 = 3500.0
 p_1 = 5000.0
 M_1 = 2.0
 
 mix = setup.setup_mpp()
-setup.mixture_states(mix)["reservoir"].equilibrate(T_1,p_1)
-v_1 = M_1*setup.mixture_states(mix)["reservoir"].equilibriumSoundSpeed()
-h_1 = setup.mixture_states(mix)["reservoir"].mixtureHMass() + (0.5*v_1**2)
+setup.mixture_states(mix)["reservoir"].equilibrate(T_1, p_1)
+v_1 = M_1 * setup.mixture_states(mix)["reservoir"].equilibriumSoundSpeed()
+h_1 = setup.mixture_states(mix)["reservoir"].mixtureHMass() + (0.5 * v_1**2)
 s_1 = setup.mixture_states(mix)["reservoir"].mixtureSMass()
 
-print(reservoir(T_1,p_1,h_1,s_1,1.0e-06,mix,"reservoir",options))
+print(reservoir(T_1, p_1, h_1, s_1, 1.0e-06, mix, "reservoir", options))

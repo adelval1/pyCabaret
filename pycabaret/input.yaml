@@ -1,0 +1,52 @@
+Inverse Rebuilding: True
+
+MIXTURE:
+  Type: air_11
+  Thermodynamics: RRHO
+  State model: EquilTP
+
+FORWARD INPUT:
+  Free stream temperature: 3500.0
+  Free stream pressure: 5000.0
+  Free stream Mach number: 2.0
+  Throat area: 9.621e-04
+  Prandtl number: 0.713
+  Lewis number: 1.0
+  Effective radius: 0.025
+  Surface temperature: 350.0
+
+INVERSE INPUT:
+  Residual: 1.0e-10
+  Measurements to rebuild from: [Heat_flux, Stagnation_pressure, Reservoir_pressure]
+  Heat flux: 16323445.95
+  Stagnation pressure: 51571.17
+  Reservoir pressure: 268261.66
+  Reservoir temperature: 5100.0
+  Total enthalpy: 4
+  Stagnation density: 4
+  Free stream density: 4
+  Mass flow: 0.142
+  Free stream velocity: 4
+  Optimization method: Nelder-Mead
+  Maximum number of iterations: 10000000000000
+  Number of starting points: 1
+  Print steps: True
+
+Reservoir Parameters:
+  Initial temperature: 100.0
+  Initial pressure: 10000.0
+  Robust: True
+
+Mass flow parameters:
+  Initial temperature: 2.0
+  Initial pressure: 10.0
+  Robust: False
+
+Shock parameters:
+  Initial ratio: 0.2
+  Robust: False
+
+Total quantities:
+  Initial temperature: 1.0
+  Initial pressure: 1.0
+  Robust: False

@@ -1,0 +1,177 @@
+---------------------------------
+REBUILDING OPTION
+---------------------------------
+Inverse
+-
+True
+-
+---------------------------------
+MIXTURE OPTIONS
+---------------------------------
+Mixture type
+-
+air_11
+-
+Thermodynamics
+-
+RRHO
+-
+State model
+-
+EquilTP
+-
+---------------------------------
+FORWARD INPUT PARAMETERS
+---------------------------------
+Free stream temperature
+-
+3500.0
+-
+Free stream pressure
+-
+5000.0
+-
+Free stream Mach number
+-
+2.0
+-
+Throat area
+-
+9.621e-04
+-
+Prandtl number
+-
+0.713
+-
+Lewis number
+-
+1.0
+-
+Effective radius
+-
+0.025
+-
+Surface temperature
+-
+350.0
+-
+---------------------------------
+INVERSE INPUT PARAMETERS
+---------------------------------
+Residual
+-
+1.0e-10
+-
+Measurements to rebuild from
+-
+Heat_flux
+Stagnation_pressure
+Reservoir_pressure
+-
+Heat_flux
+-
+16323445.95
+-
+Stagnation_pressure
+-
+51571.17
+-
+Reservoir_pressure
+-
+268261.66
+-
+Reservoir_temperature
+-
+5100.0
+-
+Total_enthalpy
+-
+4
+-
+Stagnation_density
+-
+4
+-
+Free_stream_density
+-
+4
+-
+Mass_flow
+-
+0.142
+-
+Free_stream_velocity
+-
+4
+-
+Optimization method
+-
+Nelder-Mead
+-
+Maximum number of iterations
+-
+10000000000000
+-
+Number of starting points
+-
+1
+-
+Print steps
+-
+Yes
+-
+---------------------------------
+MODULES PARAMETERS
+---------------------------------
+Reservoir
+-
+Initial temperature
+-
+100.0
+-
+Initial pressure
+-
+10000.0
+-
+Robust
+-
+Yes
+-
+Mass flow
+-
+Initial temperature
+-
+2.0
+-
+Initial pressure
+-
+10.0
+-
+Robust
+-
+No
+-
+Shocking
+-
+Initial ratio
+-
+0.2
+-
+Robust
+-
+No
+-
+Total quantities
+-
+Initial temperature
+-
+1.0
+-
+Initial pressure
+-
+1.0
+-
+Robust
+-
+No
+-
