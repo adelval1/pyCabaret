@@ -1,16 +1,17 @@
 import numpy as np
 
-def metric(var,func,constraints,args):
+
+def metric(var, func, constraints, args):
     for i in range(len(var)):
-        if var[i]<constraints[i][0] or var[i]>constraints[i][1]:
+        if var[i] < constraints[i][0] or var[i] > constraints[i][1]:
             if len(var) == 1:
-                return 1.0e+16
+                return 1.0e16
             else:
-                return [1.0e+16]*len(var)
+                return [1.0e16] * len(var)
 
-    feval = func(var,args)
+    feval = func(var, args)
 
-    residual = [feval[i] for i in range(len(var))] 
+    residual = [feval[i] for i in range(len(var))]
     metric = [np.linalg.norm(residual[i]) for i in range(len(residual))]
 
     if len(metric) == 1:

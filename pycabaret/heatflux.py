@@ -1,7 +1,7 @@
-import numpy as np 
+import numpy as np
 
 # Based on Modified Newtonian Theory
-def velocity_gradient(p_t2,p_1,rho_t2,reff):
+def velocity_gradient(p_t2, p_1, rho_t2, reff):
     """
     Function that computes the velocity gradient needed for heat flux computations.
 
@@ -15,11 +15,12 @@ def velocity_gradient(p_t2,p_1,rho_t2,reff):
         Stagnation density.
 
     Output
-    ----------   
+    ----------
     float
-        Velocity gradient.  
+        Velocity gradient.
     """
-    return np.sqrt(2*(p_t2 -p_1)/rho_t2)/reff
+    return np.sqrt(2 * (p_t2 - p_1) / rho_t2) / reff
+
 
 # Based on Fay-Riddell
 def heatflux(mix, pr, L, p_1, p_t2, T_t2, h_t2, reff, T_w):
@@ -48,9 +49,9 @@ def heatflux(mix, pr, L, p_1, p_t2, T_t2, h_t2, reff, T_w):
         Wall temperature.
 
     Output
-    ----------   
+    ----------
     float
-        Heat flux in W/m2  
+        Heat flux in W/m2
     """
 
     # Boundary layer edge state
@@ -67,6 +68,13 @@ def heatflux(mix, pr, L, p_1, p_t2, T_t2, h_t2, reff, T_w):
     h_w = mix.mixtureHMass()
 
     # Velocity gradient
-    du2dx = velocity_gradient(p_t2,p_1,rho_t2,reff)
+    du2dx = velocity_gradient(p_t2, p_1, rho_t2, reff)
 
-    return 0.763*pr**(-0.6)*((rho_t2 * eta_t2)**0.4)*((rho_w *eta_w)**0.1)*np.sqrt(du2dx)*(h_t2 -h_w)
+    return (
+        0.763
+        * pr ** (-0.6)
+        * ((rho_t2 * eta_t2) ** 0.4)
+        * ((rho_w * eta_w) ** 0.1)
+        * np.sqrt(du2dx)
+        * (h_t2 - h_w)
+    )

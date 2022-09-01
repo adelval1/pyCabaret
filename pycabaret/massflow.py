@@ -1,8 +1,9 @@
-import numpy as np 
-import rebuilding_setup as setup
-import enthalpy_entropy_solver as solver
+import numpy as np
+import pycabaret.rebuilding_setup as setup
+import pycabaret.enthalpy_entropy_solver as solver
 
-def massflow(T_1,p_1,h_1,s_1,A_t,resmin,mix,state,options):
+
+def massflow(T_1, p_1, h_1, s_1, A_t, resmin, mix, state, options):
     """
     Function that solves the conservation equations for the computation of the massflow along the nozzle.
 
@@ -28,14 +29,14 @@ def massflow(T_1,p_1,h_1,s_1,A_t,resmin,mix,state,options):
         Options for the computation of the shocking module. Comes from the input file.
 
     Output
-    ----------   
+    ----------
     mf: float
-        Mass flow.  
+        Mass flow.
     """
-    throat_state = solver.enthalpy_entropy_solver(resmin,h_1,s_1,mix,state,"massflow",options)
+    throat_state = solver.enthalpy_entropy_solver(resmin, h_1, s_1, mix, state, "massflow", options)
 
-    T_t,p_t,v_t = throat_state.solution(T_1,p_1,1.)
-    setup.mixture_states(mix)[state].equilibrate(T_t,p_t)
-    mf = setup.mixture_states(mix)[state].density()*v_t*A_t
+    T_t, p_t, v_t = throat_state.solution(T_1, p_1, 1.0)
+    setup.mixture_states(mix)[state].equilibrate(T_t, p_t)
+    mf = setup.mixture_states(mix)[state].density() * v_t * A_t
 
     return mf
